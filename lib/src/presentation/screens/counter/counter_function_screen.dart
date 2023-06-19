@@ -15,72 +15,78 @@ class _CounterFunctionScreenState extends State<CounterFunctionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('myApp Counter Screen')
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.refresh_rounded), 
-          onPressed: () {  },
-        ),
-        //colocarlo a la derecha
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh_rounded), 
-            onPressed: () {  },
-          )
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '$counter',
-              style:
-                  const TextStyle(fontSize: 160, fontWeight: FontWeight.w100),
-            ),
-            Text('Click${counter < 2 ? '' : 's'}' )
+        appBar: AppBar(
+          title: const Center(child: Text('myApp Counter Screen')),
+          leading: IconButton(
+            icon: const Icon(Icons.refresh_rounded),
+            onPressed: () {},
+          ),
+          //colocarlo a la derecha
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh_rounded),
+              onPressed: () {},
+            )
           ],
         ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            //redondear boton
-            shape: const StadiumBorder(),
-            onPressed: () {
-              counter += 1;
-              //actualiza el estado en tiempo real
-              setState(() { }
-              );
-            },
-            child: const Icon(Icons.plus_one),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '$counter',
+                style:
+                    const TextStyle(fontSize: 160, fontWeight: FontWeight.w100),
+              ),
+              Text('Click${counter < 2 ? '' : 's'}')
+            ],
           ),
-          //seperar los botones
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () {
-              counter -= 1;
-              //actualiza el estado en tiempo real
-              setState(() { }
-              );
-            },
-            child: const Icon(Icons.exposure_minus_1_outlined),
-          ),
-          const SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () {
-              counter = 0;
-              //actualiza el estado en tiempo real
-              setState(() { }
-              );
-            },
-            child: const Icon(Icons.refresh_outlined),
-          ),
-        ],
-      )
+        ),
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomButtom(
+              icon: Icons.plus_one,
+              onPressed: () {
+                counter++;
+                setState(() {});
+              },
+            ),
+            //seperar los botones
+            const SizedBox(height: 10),
+            CustomButtom(
+              icon: Icons.exposure_minus_1_outlined,
+              onPressed: () {
+                counter--;
+                setState(() {});
+              },
+            ),
+            const SizedBox(height: 10),
+            CustomButtom(
+              icon: Icons.refresh_outlined,
+              onPressed: () {
+                counter = 0;
+                setState(() {});
+              },
+            ),
+          ],
+        ));
+  }
+}
+
+class CustomButtom extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  const CustomButtom({super.key, required this.icon, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      
+      focusElevation: BorderSide.strokeAlignInside,
+      onPressed: onPressed,
+      child: Icon(icon),
     );
   }
 }
